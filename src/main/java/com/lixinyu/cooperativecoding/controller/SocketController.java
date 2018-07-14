@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
+import java.util.Properties;
 
 @Controller
 public class SocketController {
@@ -55,15 +56,13 @@ public class SocketController {
                 break;
             case MSG_RUN:
                 Compiler compiler = new Compiler();
-                //For Linux
-                // String temp_dir = "/tmp/spring_boot/";
 
-                //For Windows
-                //Windows 下需要挂载磁盘
-                String temp_dir = "C:\\Users\\Ivan\\AppData\\Local\\Temp\\";
-                String path = temp_dir + name+"_"+System.currentTimeMillis()+"\\";
+                Properties properties = System.getProperties();
+                String separator = properties.getProperty("file.separator");
+                String tmpdir = properties.getProperty("java.io.tmpdir") + separator + "spring_boot" + separator;
+                String path = tmpdir + name + "_" + System.currentTimeMillis() + separator;
 
-                File rootPath = new File(temp_dir);
+                File rootPath = new File(tmpdir);
                 if(!rootPath.exists()){
                     rootPath.mkdir();
                 }

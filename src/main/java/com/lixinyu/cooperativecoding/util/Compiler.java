@@ -13,6 +13,7 @@ public class Compiler {
     public Compiler() {
     }
 
+
     public File write(String text, String path) throws Exception{
         File file = new File(path);
         PrintStream ps = new PrintStream(new FileOutputStream(file));
